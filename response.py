@@ -102,6 +102,16 @@ def getbp(cookie):
     num = [int(nu) for nu in re.findall(r"\d+", amount)]
     return num[3]
 
+def addbp(cookie, numofbp):
+    r = requests.post('https://steam.live.bhvrdbd.com/api/v1/extensions/rewards/grantCurrency',
+                      cookies={'bhvrSession': cookie},
+                      headers={'Host': 'steam.live.bhvrdbd.com',
+                               'Content-Type': 'application/json; charset=utf-8'},
+                      json={"data":{"rewardType": "Story", "walletToGrant":{"balance": numofbp, "currency": "Bloodpoints"}}},
+                      proxies=proxies,
+                      verify=False)
+    print(r.status_code)
+
 
 
 def findRank(numofpips):

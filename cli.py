@@ -124,13 +124,47 @@ $$    $$/ $$    $$/ $$ |         $$$/    $$ |   $$$/   $$    $$/ $$ |
 == == == == == == == == == == == == == == == == == == == == == == == == == ==\n''',
 "You have currently ", response.getbp(cookie), " Bloodpoints\n"
 "== == == == == == == == == == == == == == == == == == == == == == == == == ==\n"
-"Enter amount: \n")
+"1 - Add 1M BP\n"
+"2 - Add 500K BP\n"
+"3 - Add 100K BP")
                         try:
                             d = int(input())
                         except ValueError:
                             print("Please enter a valid number")
-                        if d < 1 or d > 1000000:
-                            print("Please enter a valid value")
+
+                        if d == 1:
+                            x = 1000000
+                            while x != response.getbp(cookie):
+                                response.addbp(cookie,100000)
+                                if response.getbp(cookie) == 1000000:
+                                    break
+
+                            print("You have hit max bloodpoins")
+                            time.sleep(1)
+                            break
+                        if d == 2:
+                            x = 500000
+                            while x!= response.getbp(cookie):
+                                response.addbp(cookie, 100000)
+                                if response.getbp(cookie) == 1000000:
+                                    break
+                            print("You have added 500K bp")
+                            time.sleep(1)
+                            break
+                        if d == 3:
+                            if response.getbp(cookie) == 1000000:
+                                print("You have hit max BP")
+                                break
+                            else:
+                                response.addbp(cookie,100000)
+                                print("You have added 100K bp")
+
+                            time.sleep(1)
+                            break
+
+
+
+
 
 
                 if selection == 4:
