@@ -84,8 +84,24 @@ def rankGetKiller(cookie):
     message = response.text
     re.findall(r"\d+", message)
     num = [int(nu) for nu in re.findall(r"\d+", message)]
+    if len(num) == 4:
+        return findRank(num[2])
+    if len(num) == 2:
+        return findRank(num[1])
 
-    return findRank(num[2])
+def getbp(cookie):
+    r = requests.get('https://steam.live.bhvrdbd.com/api/v1/wallet/currencies',
+                     cookies={'bhvrSession': cookie},
+                     headers={'Host': 'steam.live.bhvrdbd.com',
+                              'User-Agent': 'DeadByDaylight/++DeadByDaylight+Live-CL-321933 Windows/10.0.19041.1.768.64bit',
+                              'Content-Type': 'application/json; charset=utf-8',
+                              'x-kraken-client-platform': 'steam'}, proxies=proxies,
+                     verify=False)
+    amount = r.text
+    re.findall(r"\d+", amount)
+    num = [int(nu) for nu in re.findall(r"\d+", amount)]
+    return num[3]
+
 
 
 def findRank(numofpips):
