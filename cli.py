@@ -29,7 +29,7 @@ Cookie: ''')
         if response.checkCookie(cookie) == True:
             print("Correct Cookie!")
             selection = -1
-            while selection != 3:
+            while selection != 4:
                 clear()
                 print_menu()
                 try:
@@ -108,11 +108,34 @@ $$    $$/ $$    $$/ $$ |         $$$/    $$ |   $$$/   $$    $$/ $$ |
                                 break
                     time.sleep(1)
                 if selection == 3:
+                    d = -1
+                    while True:
+                        clear()
+                        print('''
+ _______   _______          ______         __        __                     
+|       \ |       \        /      \       |  \      |  \                    
+| $$$$$$$\| $$$$$$$\      |  $$$$$$\  ____| $$  ____| $$  ______    ______  
+| $$__/ $$| $$__/ $$      | $$__| $$ /      $$ /      $$ /      \  /      \ 
+| $$    $$| $$    $$      | $$    $$|  $$$$$$$|  $$$$$$$|  $$$$$$\|  $$$$$$\|
+| $$$$$$$\| $$$$$$$       | $$$$$$$$| $$  | $$| $$  | $$| $$    $$| $$   \$$
+| $$__/ $$| $$            | $$  | $$| $$__| $$| $$__| $$| $$$$$$$$| $$      
+| $$    $$| $$            | $$  | $$ \$$    $$ \$$    $$ \$$     \| $$      
+ \$$$$$$$  \$$             \$$   \$$  \$$$$$$$  \$$$$$$$  \$$$$$$$ \$$   \n
+== == == == == == == == == == == == == == == == == == == == == == == == == ==\n''',
+"You have currently ", response.getbp(cookie), " Bloodpoints\n"
+"== == == == == == == == == == == == == == == == == == == == == == == == == ==\n"
+"Enter amount: \n")
+                        try:
+                            d = int(input())
+                        except ValueError:
+                            print("Please enter a valid number")
+                        if d < 1 or d > 1000000:
+                            print("Please enter a valid value")
+
+
+                if selection == 4:
                     print("Exiting..")
                     exit()
-                else:
-                    print("Please provide a valid value")
-                    time.sleep(2)
         else:
             print("Invalid Cookie")
             time.sleep(1)
@@ -145,6 +168,7 @@ def print_menu():
 by RadioActive\n
 1 - Change Rank for Survivor\n
 2 - Change Rank for Killer\n
-3 - Exit\n
+3 - Add Bloodpoints\n
+4 - Exit\n
 == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == \n
 Enter a choice and press enter: ''')
