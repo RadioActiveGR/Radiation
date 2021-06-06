@@ -3,8 +3,10 @@ import requests
 import urllib3
 import psutil
 
+# Disable warnings for insecure requests
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+# If fiddler is open, it uses a proxy to send requests, if not send them normally
 if "Fiddler.exe" in (p.name() for p in psutil.process_iter()):
     proxies = {
         "http": "http://127.0.0.1:8888",
@@ -12,7 +14,7 @@ if "Fiddler.exe" in (p.name() for p in psutil.process_iter()):
 if not "Fiddler.exe" in (p.name() for p in psutil.process_iter()):
     proxies = {"http": "", "https": "", }
 
-
+# Function that checks if the cookie given is correct
 def checkCookie(cookie):
     r = requests.get('https://steam.live.bhvrdbd.com/api/v1/wallet/currencies',
                      cookies={'bhvrSession': cookie},
@@ -26,7 +28,7 @@ def checkCookie(cookie):
     else:
         return False
 
-
+# Function that ranks up the survivor
 def rankUpSurv(cookie):
     rank = requests.put('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
                         cookies={'bhvrSession': cookie},
@@ -36,7 +38,7 @@ def rankUpSurv(cookie):
     if rank.status_code == 200:
         print("True")
 
-
+# Function that ranks down the survivor
 def rankDownSurv(cookie):
     rank = requests.put('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
                         cookies={'bhvrSession': cookie},
@@ -46,7 +48,7 @@ def rankDownSurv(cookie):
     if rank.status_code == 200:
         print("True")
 
-
+# Function that ranks up the killer
 def rankUpKiller(cookie):
     rank = requests.put('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
                         cookies={'bhvrSession': cookie},
@@ -56,7 +58,7 @@ def rankUpKiller(cookie):
     if rank.status_code == 200:
         print("True")
 
-
+# Function that ranks down the killer
 def rankDownKiller(cookie):
     rank = requests.put('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
                         cookies={'bhvrSession': cookie},
@@ -66,7 +68,7 @@ def rankDownKiller(cookie):
     if rank.status_code == 200:
         print("True")
 
-
+# Function that gets the current rank for survivor
 def rankGetSurv(cookie):
     response = requests.get('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
                             cookies={'bhvrSession': cookie}, proxies=proxies, verify=False)
@@ -77,7 +79,7 @@ def rankGetSurv(cookie):
 
     return findRank(num[0])
 
-
+# Function that gets the current rank for Killer
 def rankGetKiller(cookie):
     response = requests.get('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
                             cookies={'bhvrSession': cookie}, proxies=proxies, verify=False)
@@ -89,6 +91,7 @@ def rankGetKiller(cookie):
     if len(num) == 2:
         return findRank(num[1])
 
+# Funcation that gets the current amount of bloodpoints
 def getbp(cookie):
     r = requests.get('https://steam.live.bhvrdbd.com/api/v1/wallet/currencies',
                      cookies={'bhvrSession': cookie},
@@ -102,6 +105,7 @@ def getbp(cookie):
     num = [int(nu) for nu in re.findall(r"\d+", amount)]
     return num[3]
 
+# Function that adds bloodpoints
 def addbp(cookie, numofbp):
     r = requests.post('https://steam.live.bhvrdbd.com/api/v1/extensions/rewards/grantCurrency',
                       cookies={'bhvrSession': cookie},
@@ -114,7 +118,7 @@ def addbp(cookie, numofbp):
         print("Adding...")
 
 
-
+# Function that finds rank depending on the number of pips
 def findRank(numofpips):
     rank = -1
     if numofpips == 0 or numofpips == 1 or numofpips == 2:
