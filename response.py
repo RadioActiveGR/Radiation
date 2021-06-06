@@ -110,7 +110,8 @@ def addbp(cookie, numofbp):
                       json={"data":{"rewardType": "Story", "walletToGrant":{"balance": numofbp, "currency": "Bloodpoints"}}},
                       proxies=proxies,
                       verify=False)
-    print(r.status_code)
+    if r.status_code == 200:
+        print("Adding...")
 
 
 
