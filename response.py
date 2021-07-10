@@ -1,5 +1,6 @@
 import re
 import requests
+import json
 import urllib3
 import psutil
 
@@ -14,6 +15,7 @@ if "Fiddler.exe" in (p.name() for p in psutil.process_iter()):
 if not "Fiddler.exe" in (p.name() for p in psutil.process_iter()):
     proxies = {"http": "", "https": "", }
 
+
 # Function that checks if the cookie given is correct
 def checkCookie(cookie):
     r = requests.get('https://steam.live.bhvrdbd.com/api/v1/wallet/currencies',
@@ -21,12 +23,13 @@ def checkCookie(cookie):
                      headers={'Host': 'steam.live.bhvrdbd.com',
                               'User-Agent': 'DeadByDaylight/++DeadByDaylight+Live-CL-321933 Windows/10.0.19041.1.768.64bit',
                               'Content-Type': 'application/json; charset=utf-8',
-                              'x-kraken-client-platform': 'steam'},proxies=proxies,
+                              'x-kraken-client-platform': 'steam'}, proxies=proxies,
                      verify=False)
     if r.status_code == 200:
         return True
     else:
         return False
+
 
 # Function that ranks up the survivor
 def rankUpSurv(cookie):
@@ -38,6 +41,7 @@ def rankUpSurv(cookie):
     if rank.status_code == 200:
         print("True")
 
+
 # Function that ranks down the survivor
 def rankDownSurv(cookie):
     rank = requests.put('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
@@ -47,6 +51,7 @@ def rankDownSurv(cookie):
     print("Ranking Down...")
     if rank.status_code == 200:
         print("True")
+
 
 # Function that ranks up the killer
 def rankUpKiller(cookie):
@@ -58,6 +63,7 @@ def rankUpKiller(cookie):
     if rank.status_code == 200:
         print("True")
 
+
 # Function that ranks down the killer
 def rankDownKiller(cookie):
     rank = requests.put('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
@@ -68,30 +74,29 @@ def rankDownKiller(cookie):
     if rank.status_code == 200:
         print("True")
 
+
 # Function that gets the current rank for survivor
 def rankGetSurv(cookie):
     response = requests.get('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
                             cookies={'bhvrSession': cookie}, proxies=proxies, verify=False)
 
-    message = response.text
-    re.findall(r"\d+", message)
-    num = [int(nu) for nu in re.findall(r"\d+", message)]
+    # Getting the JSON data to a dictionary and getting value from there
+    data = json.loads(response.text)
+    survivorrank = data['survivorPips']
+    return findRank(survivorrank)
 
-    return findRank(num[0])
 
 # Function that gets the current rank for Killer
 def rankGetKiller(cookie):
     response = requests.get('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
                             cookies={'bhvrSession': cookie}, proxies=proxies, verify=False)
-    message = response.text
-    re.findall(r"\d+", message)
-    num = [int(nu) for nu in re.findall(r"\d+", message)]
-    if len(num) == 4:
-        return findRank(num[2])
-    if len(num) == 2:
-        return findRank(num[1])
 
-# Funcation that gets the current amount of bloodpoints
+# Getting the JSON data to a dictionary and getting value from there
+    data = json.loads(response.text)
+    killerrank = data['killerPips']
+    return findRank(killerrank)
+
+# Function that gets the current amount of bloodpoints
 def getbp(cookie):
     r = requests.get('https://steam.live.bhvrdbd.com/api/v1/wallet/currencies',
                      cookies={'bhvrSession': cookie},
@@ -105,17 +110,33 @@ def getbp(cookie):
     num = [int(nu) for nu in re.findall(r"\d+", amount)]
     return num[3]
 
+
 # Function that adds bloodpoints
 def addbp(cookie, numofbp):
     r = requests.post('https://steam.live.bhvrdbd.com/api/v1/extensions/rewards/grantCurrency',
                       cookies={'bhvrSession': cookie},
                       headers={'Host': 'steam.live.bhvrdbd.com',
                                'Content-Type': 'application/json; charset=utf-8'},
-                      json={"data":{"rewardType": "Story", "walletToGrant":{"balance": numofbp, "currency": "Bloodpoints"}}},
+                      json={"data": {"rewardType": "Story",
+                                     "walletToGrant": {"balance": numofbp, "currency": "Bloodpoints"}}},
                       proxies=proxies,
                       verify=False)
     if r.status_code == 200:
         print("Adding...")
+
+
+# Function that adds more than 1M bp
+def unlimitedbp(cookie, amount):
+    r = requests.post('https://steam.live.bhvrdbd.com/api/v1/extensions/wallet/migrateCurrencies',
+                      cookies={'bhvrSession': cookie},
+                      headers={'Host': 'steam.live.bhvrdbd.com',
+                               'Content-Type': 'application/json; charset=utf-8'},
+                      json={"data": {"list": [{"balance": amount, "currency": "BonusBloodpoints"}]}},
+                      proxies=proxies,
+                      verify=False)
+    print(r.status_code)
+    print(r.text)
+    print(r.content)
 
 
 # Function that finds rank depending on the number of pips
