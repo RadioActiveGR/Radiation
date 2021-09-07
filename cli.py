@@ -1,21 +1,22 @@
 import time
 import response
 import os
+from colorama import init, Fore
 
-
+init(convert=True)
 
 def main():
     while (True):
         clear()
         print('''
- /$$$$$$$                      /$$       /$$      /$$                 /$$ /$$  /$$$$$$  /$$                    
-| $$__  $$                    | $$      | $$$    /$$$                | $$|__/ /$$__  $$|__/                    
-| $$  \ $$  /$$$$$$  /$$$$$$$ | $$   /$$| $$$$  /$$$$  /$$$$$$   /$$$$$$$ /$$| $$  \__/ /$$  /$$$$$$   /$$$$$$ 
-| $$$$$$$/ |____  $$| $$__  $$| $$  /$$/| $$ $$/$$ $$ /$$__  $$ /$$__  $$| $$| $$$$    | $$ /$$__  $$ /$$__  $$
-| $$__  $$  /$$$$$$$| $$  \ $$| $$$$$$/ | $$  $$$| $$| $$  \ $$| $$  | $$| $$| $$_/    | $$| $$$$$$$$| $$  \__/
-| $$  \ $$ /$$__  $$| $$  | $$| $$_  $$ | $$\  $ | $$| $$  | $$| $$  | $$| $$| $$      | $$| $$_____/| $$      
-| $$  | $$|  $$$$$$$| $$  | $$| $$ \  $$| $$ \/  | $$|  $$$$$$/|  $$$$$$$| $$| $$      | $$|  $$$$$$$| $$      
-|__/  |__/ \_______/|__/  |__/|__/  \__/|__/     |__/ \______/  \_______/|__/|__/      |__/ \_______/|__/         \n
+ /$$$$$$$                  /$$ /$$             /$$     /$$                    
+| $$__  $$                | $$|__/            | $$    |__/                    
+| $$  \ $$  /$$$$$$   /$$$$$$$ /$$  /$$$$$$  /$$$$$$   /$$  /$$$$$$  /$$$$$$$ 
+| $$$$$$$/ |____  $$ /$$__  $$| $$ |____  $$|_  $$_/  | $$ /$$__  $$| $$__  $$
+| $$__  $$  /$$$$$$$| $$  | $$| $$  /$$$$$$$  | $$    | $$| $$  \ $$| $$  \ $$
+| $$  \ $$ /$$__  $$| $$  | $$| $$ /$$__  $$  | $$ /$$| $$| $$  | $$| $$  | $$
+| $$  | $$|  $$$$$$$|  $$$$$$$| $$|  $$$$$$$  |  $$$$/| $$|  $$$$$$/| $$  | $$
+|__/  |__/ \_______/ \_______/|__/ \_______/   \___/  |__/ \______/ |__/  |__/\n
 == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == \n
 By RadioActive\n
 == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == \n
@@ -53,8 +54,15 @@ $$    $$/ $$    $$/ $$ |         $$$/    $$ |   $$$/   $$    $$/ $$ |
  $$$$$$/   $$$$$$/  $$/           $/     $$/     $/     $$$$$$/  $$/      \n
 == == == == == == == == == == == == == == == == == == == == == == == == ==\n''' ,"\n"
 "Your Survivor Rank is ", response.rankGetSurv(cookie), "\n"
-"== == == == == == == == == == == == == == == == == == == == == == == == ==\n"
-"Enter rank: \n")
+"== == == == == == == == == == == == == == == == == == == == == == == == ==\n")
+                        print(
+Fore.LIGHTBLACK_EX + "Ash IV  = 20 " + Fore.LIGHTRED_EX + 'Bronze IV  = 16 ' + Fore.LIGHTWHITE_EX + 'Silver IV	= 12 ' + Fore.LIGHTYELLOW_EX + 'Gold IV  = 8 ' + Fore.RED + 'Iridescent IV	 = 4\n'
++ Fore.LIGHTBLACK_EX + 'Ash III = 19 ' + Fore.LIGHTRED_EX + 'Bronze III = 15 ' + Fore.LIGHTWHITE_EX + 'Silver III	= 11 ' + Fore.LIGHTYELLOW_EX + 'Gold III = 7 ' + Fore.RED + 'Iridescent III = 3\n'
++ Fore.LIGHTBLACK_EX + 'Ash II	= 18 ' + Fore.LIGHTRED_EX +  'Bronze II  = 14 ' + Fore.LIGHTWHITE_EX + 'Silver II	= 10 ' + Fore.LIGHTYELLOW_EX + 'Gold II  = 6 ' + Fore.RED + 'Iridescent II	 = 2\n'
++ Fore.LIGHTBLACK_EX + 'Ash I	= 17 ' + Fore.LIGHTRED_EX +  'Bronze I   = 13 ' + Fore.LIGHTWHITE_EX +  'Silver I	= 9 ' + Fore.LIGHTYELLOW_EX + ' Gold I   = 5 ' + Fore.RED + 'Iridescent I	 = 1\n' + Fore.RESET)
+
+
+                        print("Enter number: \n")
                         try:
                             c = int(input())
                         except ValueError:
@@ -88,8 +96,14 @@ $$    $$/ $$    $$/ $$ |         $$$/    $$ |   $$$/   $$    $$/ $$ |
  \$$   \$$ \$$ \$$ \$$  \$$$$$$$ \$$         \n 
 == == == == == == == == == == == == == ==\n''',
 "Your Killer Rank is ", response.rankGetKiller(cookie),"\n"
-"== == == == == == == == == == == == == ==\n"
-"Enter rank: \n")
+"== == == == == == == == == == == == == ==\n")
+                        print(
+Fore.LIGHTBLACK_EX + "Ash IV  = 20 " + Fore.LIGHTRED_EX + 'Bronze IV  = 16 ' + Fore.LIGHTWHITE_EX + 'Silver IV	= 12 ' + Fore.LIGHTYELLOW_EX + 'Gold IV  = 8 ' + Fore.RED + 'Iridescent IV	 = 4\n'
++ Fore.LIGHTBLACK_EX + 'Ash III = 19 ' + Fore.LIGHTRED_EX + 'Bronze III = 15 ' + Fore.LIGHTWHITE_EX + 'Silver III	= 11 ' + Fore.LIGHTYELLOW_EX + 'Gold III = 7 ' + Fore.RED + 'Iridescent III = 3\n'
++ Fore.LIGHTBLACK_EX + 'Ash II	= 18 ' + Fore.LIGHTRED_EX +  'Bronze II  = 14 ' + Fore.LIGHTWHITE_EX + 'Silver II	= 10 ' + Fore.LIGHTYELLOW_EX + 'Gold II  = 6 ' + Fore.RED + 'Iridescent II	 = 2\n'
++ Fore.LIGHTBLACK_EX + 'Ash I	= 17 ' + Fore.LIGHTRED_EX +  'Bronze I   = 13 ' + Fore.LIGHTWHITE_EX +  'Silver I	= 9 ' + Fore.LIGHTYELLOW_EX + ' Gold I   = 5 ' + Fore.RED + 'Iridescent I	 = 1\n' + Fore.RESET)
+
+                        print("Enter number: \n")
                         try:
                             b = int(input())
                         except ValueError:
@@ -191,14 +205,15 @@ def get_cookie():
 
 def print_menu():
     print('''\n
- /$$$$$$$                      /$$       /$$      /$$                 /$$ /$$  /$$$$$$  /$$                    
-| $$__  $$                    | $$      | $$$    /$$$                | $$|__/ /$$__  $$|__/                    
-| $$  \ $$  /$$$$$$  /$$$$$$$ | $$   /$$| $$$$  /$$$$  /$$$$$$   /$$$$$$$ /$$| $$  \__/ /$$  /$$$$$$   /$$$$$$ 
-| $$$$$$$/ |____  $$| $$__  $$| $$  /$$/| $$ $$/$$ $$ /$$__  $$ /$$__  $$| $$| $$$$    | $$ /$$__  $$ /$$__  $$
-| $$__  $$  /$$$$$$$| $$  \ $$| $$$$$$/ | $$  $$$| $$| $$  \ $$| $$  | $$| $$| $$_/    | $$| $$$$$$$$| $$  \__/
-| $$  \ $$ /$$__  $$| $$  | $$| $$_  $$ | $$\  $ | $$| $$  | $$| $$  | $$| $$| $$      | $$| $$_____/| $$      
-| $$  | $$|  $$$$$$$| $$  | $$| $$ \  $$| $$ \/  | $$|  $$$$$$/|  $$$$$$$| $$| $$      | $$|  $$$$$$$| $$      
-|__/  |__/ \_______/|__/  |__/|__/  \__/|__/     |__/ \______/  \_______/|__/|__/      |__/ \_______/|__/                                                                                                       
+ /$$$$$$$                  /$$ /$$             /$$     /$$                    
+| $$__  $$                | $$|__/            | $$    |__/                    
+| $$  \ $$  /$$$$$$   /$$$$$$$ /$$  /$$$$$$  /$$$$$$   /$$  /$$$$$$  /$$$$$$$ 
+| $$$$$$$/ |____  $$ /$$__  $$| $$ |____  $$|_  $$_/  | $$ /$$__  $$| $$__  $$
+| $$__  $$  /$$$$$$$| $$  | $$| $$  /$$$$$$$  | $$    | $$| $$  \ $$| $$  \ $$
+| $$  \ $$ /$$__  $$| $$  | $$| $$ /$$__  $$  | $$ /$$| $$| $$  | $$| $$  | $$
+| $$  | $$|  $$$$$$$|  $$$$$$$| $$|  $$$$$$$  |  $$$$/| $$|  $$$$$$/| $$  | $$
+|__/  |__/ \_______/ \_______/|__/ \_______/   \___/  |__/ \______/ |__/  |__/
+                                                                                                                                                                                 
 == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == \n
 by RadioActive\n
 1 - Change Rank for Survivor\n
