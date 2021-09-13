@@ -107,15 +107,12 @@ def getbp(cookie):
                               'Content-Type': 'application/json; charset=utf-8',
                               'x-kraken-client-platform': 'steam'}, proxies=proxies,
                      verify=False)
-    amount = r.text
     data = json.loads(r.text)
     bp = -1
     for i in data['list']:
         if i['currency'] == 'Bloodpoints':
             bp = i['balance']
     return bp
-
-
 
 
 # Function that adds bloodpoints
@@ -143,6 +140,7 @@ def unlimitedbp(cookie, amount):
                       verify=False)
     # Getting the JSON data to a dictionary and getting value from there
     data = json.loads(r.text)
+    status = -1
     for i in data['list']:
         status = i['migrated']
 
@@ -151,7 +149,50 @@ def unlimitedbp(cookie, amount):
     if status == False:
         print(Fore.RED + 'Unsuccessful, Already Done' + Fore.RESET)
 
+
 # {'migrationStatus': True, 'list': [{'migrated': False, 'currency': 'BonusBloodpoints', 'reason': 'ALREADY_DONE'}]}
+
+# Method to find current bonus bp
+def getbonusbp(cookie):
+    r = requests.get('https://steam.live.bhvrdbd.com/api/v1/wallet/currencies',
+                     cookies={'bhvrSession': cookie},
+                     headers={'Host': 'steam.live.bhvrdbd.com',
+                              'User-Agent': 'DeadByDaylight/++DeadByDaylight+Live-CL-321933 Windows/10.0.19041.1.768.64bit',
+                              'Content-Type': 'application/json; charset=utf-8',
+                              'x-kraken-client-platform': 'steam'}, proxies=proxies,
+                     verify=False)
+    data = json.loads(r.text)
+    bonusbp = -1
+    for i in data['list']:
+        if i['currency'] == 'BonusBloodpoints':
+            bonusbp = i['balance']
+    return bonusbp
+
+def removebp(cookie, amount):
+    r = requests.post('https://steam.live.bhvrdbd.com/api/v1/wallet/withdraw',
+                     cookies={'bhvrSession': cookie},
+                     headers={'Host': 'steam.live.bhvrdbd.com',
+                              'User-Agent': 'DeadByDaylight/++DeadByDaylight+Live-CL-321933 Windows/10.0.19041.1.768.64bit',
+                              'Content-Type': 'application/json; charset=utf-8',
+                              'x-kraken-client-platform': 'steam'},
+                     json={"currency":"Bloodpoints", "amount": amount, "reason": "debugOnly"},
+                     proxies=proxies,
+                     verify=False)
+    if r.status_code == 200:
+        print(Fore.GREEN + 'Removed' + Fore.RESET)
+
+def removebonusbp(cookie, amount):
+    r = requests.post('https://steam.live.bhvrdbd.com/api/v1/wallet/withdraw',
+                     cookies={'bhvrSession': cookie},
+                     headers={'Host': 'steam.live.bhvrdbd.com',
+                              'User-Agent': 'DeadByDaylight/++DeadByDaylight+Live-CL-321933 Windows/10.0.19041.1.768.64bit',
+                              'Content-Type': 'application/json; charset=utf-8',
+                              'x-kraken-client-platform': 'steam'},
+                     json={"currency":"BonusBloodpoints", "amount": amount, "reason": "debugOnly"},
+                     proxies=proxies,
+                     verify=False)
+    if r.status_code == 200:
+        print(Fore.GREEN + 'Removed' + Fore.RESET)
 
 
 # Function that finds rank depending on the number of pips
