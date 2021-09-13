@@ -3,6 +3,7 @@ import requests
 import json
 import urllib3
 import psutil
+from colorama import Fore
 
 # Disable warnings for insecure requests
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -39,7 +40,7 @@ def rankUpSurv(cookie):
                         json={"forceReset": False, "killerPips": 0, "survivorPips": 1}, proxies=proxies, verify=False)
     print("Ranking Up...")
     if rank.status_code == 200:
-        print("True")
+        print(Fore.GREEN + "True" + Fore.RESET)
 
 
 # Function that ranks down the survivor
@@ -50,7 +51,7 @@ def rankDownSurv(cookie):
                         json={"forceReset": False, "killerPips": 0, "survivorPips": -1}, proxies=proxies, verify=False)
     print("Ranking Down...")
     if rank.status_code == 200:
-        print("True")
+        print(Fore.GREEN + "True" + Fore.RESET)
 
 
 # Function that ranks up the killer
@@ -61,7 +62,7 @@ def rankUpKiller(cookie):
                         json={"forceReset": False, "killerPips": 1, "survivorPips": 0}, proxies=proxies, verify=False)
     print("Ranking Up...")
     if rank.status_code == 200:
-        print("True")
+        print(Fore.GREEN + "True" + Fore.RESET)
 
 
 # Function that ranks down the killer
@@ -72,7 +73,7 @@ def rankDownKiller(cookie):
                         json={"forceReset": False, "killerPips": -1, "survivorPips": 0}, proxies=proxies, verify=False)
     print("Ranking Down....")
     if rank.status_code == 200:
-        print("True")
+        print(Fore.GREEN + "True" + Fore.RESET)
 
 
 # Function that gets the current rank for survivor
@@ -91,10 +92,11 @@ def rankGetKiller(cookie):
     response = requests.get('https://steam.live.bhvrdbd.com/api/v1/ranks/pips',
                             cookies={'bhvrSession': cookie}, proxies=proxies, verify=False)
 
-# Getting the JSON data to a dictionary and getting value from there
+    # Getting the JSON data to a dictionary and getting value from there
     data = json.loads(response.text)
     killerrank = data['killerPips']
     return findRank(killerrank)
+
 
 # Function that gets the current amount of bloodpoints
 def getbp(cookie):
@@ -106,6 +108,7 @@ def getbp(cookie):
                               'x-kraken-client-platform': 'steam'}, proxies=proxies,
                      verify=False)
     amount = r.text
+    # TODO add a dictionary to the program to get bp value and add both bp and bonusbp
     re.findall(r"\d+", amount)
     num = [int(nu) for nu in re.findall(r"\d+", amount)]
     return num[3]
@@ -134,9 +137,17 @@ def unlimitedbp(cookie, amount):
                       json={"data": {"list": [{"balance": amount, "currency": "BonusBloodpoints"}]}},
                       proxies=proxies,
                       verify=False)
-    print(r.status_code)
-    print(r.text)
-    print(r.content)
+    # Getting the JSON data to a dictionary and getting value from there
+    data = json.loads(r.text)
+    for i in data['list']:
+        status = i['migrated']
+
+    if r.status_code == 200 and status == True:
+        print(Fore.GREEN + "Successful" + Fore.RESET)
+    if status == False:
+        print(Fore.RED + 'Unsuccessful, Already Done' + Fore.RESET)
+
+# {'migrationStatus': True, 'list': [{'migrated': False, 'currency': 'BonusBloodpoints', 'reason': 'ALREADY_DONE'}]}
 
 
 # Function that finds rank depending on the number of pips
@@ -184,3 +195,48 @@ def findRank(numofpips):
         rank = 1
 
     return rank
+
+
+def findGrade(rank):
+    grade = -1
+    if rank == 20:
+        grade = Fore.LIGHTBLACK_EX + 'Ash IV' + Fore.RESET
+    if rank == 19:
+        grade = Fore.LIGHTBLACK_EX + 'Ash III' + Fore.RESET
+    if rank == 18:
+        grade = Fore.LIGHTBLACK_EX + 'Ash II' + Fore.RESET
+    if rank == 17:
+        grade = Fore.LIGHTBLACK_EX + 'Ash I' + Fore.RESET
+    if rank == 16:
+        grade = Fore.LIGHTRED_EX + 'Bronze IV' + Fore.RESET
+    if rank == 15:
+        grade = Fore.LIGHTRED_EX + 'Bronze III' + Fore.RESET
+    if rank == 14:
+        grade = Fore.LIGHTRED_EX + 'Bronze II' + Fore.RESET
+    if rank == 13:
+        grade = Fore.LIGHTRED_EX + 'Bronze I' + Fore.RESET
+    if rank == 12:
+        grade = Fore.LIGHTWHITE_EX + 'Silver IV' + Fore.RESET
+    if rank == 11:
+        grade = Fore.LIGHTWHITE_EX + 'Silver III' + Fore.RESET
+    if rank == 10:
+        grade = Fore.LIGHTWHITE_EX + 'Silver II' + Fore.RESET
+    if rank == 9:
+        grade = Fore.LIGHTWHITE_EX + 'Silver I' + Fore.RESET
+    if rank == 8:
+        grade = Fore.LIGHTYELLOW_EX + 'Gold IV' + Fore.RESET
+    if rank == 7:
+        grade = Fore.LIGHTYELLOW_EX + 'Gold III' + Fore.RESET
+    if rank == 6:
+        grade = Fore.LIGHTYELLOW_EX + 'Gold II' + Fore.RESET
+    if rank == 5:
+        grade = Fore.LIGHTYELLOW_EX + 'Gold I' + Fore.RESET
+    if rank == 4:
+        grade = Fore.RED + 'Iridescent IV' + Fore.RESET
+    if rank == 3:
+        grade = Fore.RED + 'Iridescent III' + Fore.RESET
+    if rank == 2:
+        grade = Fore.RED + 'Iridescent II' + Fore.RESET
+    if rank == 1:
+        grade = Fore.RED + 'Iridescent I' + Fore.RESET
+    return grade
