@@ -108,10 +108,14 @@ def getbp(cookie):
                               'x-kraken-client-platform': 'steam'}, proxies=proxies,
                      verify=False)
     amount = r.text
-    # TODO add a dictionary to the program to get bp value and add both bp and bonusbp
-    re.findall(r"\d+", amount)
-    num = [int(nu) for nu in re.findall(r"\d+", amount)]
-    return num[3]
+    data = json.loads(r.text)
+    bp = -1
+    for i in data['list']:
+        if i['currency'] == 'Bloodpoints':
+            bp = i['balance']
+    return bp
+
+
 
 
 # Function that adds bloodpoints
