@@ -214,7 +214,92 @@ Fore.RED + "You can add up to 900 Millions once per account,\nIf you get unsucce
 
 
                 if selection == 5:
-                    print('coming soon')
+                    h = -1
+                    while h != 3:
+                        clear()
+                        print(Fore.CYAN + '''
+ ██▀███  ▓█████  ███▄ ▄███▓ ▒█████   ██▒   █▓▓█████     ▄▄▄▄    ██▓███  
+▓██ ▒ ██▒▓█   ▀ ▓██▒▀█▀ ██▒▒██▒  ██▒▓██░   █▒▓█   ▀    ▓█████▄ ▓██░  ██▒
+▓██ ░▄█ ▒▒███   ▓██    ▓██░▒██░  ██▒ ▓██  █▒░▒███      ▒██▒ ▄██▓██░ ██▓▒
+▒██▀▀█▄  ▒▓█  ▄ ▒██    ▒██ ▒██   ██░  ▒██ █░░▒▓█  ▄    ▒██░█▀  ▒██▄█▓▒ ▒
+░██▓ ▒██▒░▒████▒▒██▒   ░██▒░ ████▓▒░   ▒▀█░  ░▒████▒   ░▓█  ▀█▓▒██▒ ░  ░
+░ ▒▓ ░▒▓░░░ ▒░ ░░ ▒░   ░  ░░ ▒░▒░▒░    ░ ▐░  ░░ ▒░ ░   ░▒▓███▀▒▒▓▒░ ░  ░
+  ░▒ ░ ▒░ ░ ░  ░░  ░      ░  ░ ▒ ▒░    ░ ░░   ░ ░  ░   ▒░▒   ░ ░▒ ░     
+  ░░   ░    ░   ░      ░   ░ ░ ░ ▒       ░░     ░       ░    ░ ░░       
+   ░        ░  ░       ░       ░ ░        ░     ░  ░    ░               
+                                         ░                   ░          \n''' +
+'== == == == == == == == == == == == == == == == == == == == == == == == ==\n'+ Fore.RESET +
+                        '1 - Bloodpoints =',response.getbp(cookie),
+                        '\n2 - Bonus Bloodpoints =', response.getbonusbp(cookie),
+                        '\n3 - Exit',
+                        Fore.CYAN + '\n== == == == == == == == == == == == == == == == == == == == == == == == ==\n' + Fore.RESET +
+'Choose a currency to remove or 3 to exit: ')
+                        try:
+                            h = int(input())
+                        except ValueError:
+                            print('Enter a valid number')
+                        if h >= 1 or h <= 3:
+                            while h != 3:
+                                if h == 1:
+                                    clear()
+                                    print(Fore.CYAN + '''
+ ██▀███  ▓█████  ███▄ ▄███▓ ▒█████   ██▒   █▓▓█████     ▄▄▄▄    ██▓███  
+▓██ ▒ ██▒▓█   ▀ ▓██▒▀█▀ ██▒▒██▒  ██▒▓██░   █▒▓█   ▀    ▓█████▄ ▓██░  ██▒
+▓██ ░▄█ ▒▒███   ▓██    ▓██░▒██░  ██▒ ▓██  █▒░▒███      ▒██▒ ▄██▓██░ ██▓▒
+▒██▀▀█▄  ▒▓█  ▄ ▒██    ▒██ ▒██   ██░  ▒██ █░░▒▓█  ▄    ▒██░█▀  ▒██▄█▓▒ ▒
+░██▓ ▒██▒░▒████▒▒██▒   ░██▒░ ████▓▒░   ▒▀█░  ░▒████▒   ░▓█  ▀█▓▒██▒ ░  ░
+░ ▒▓ ░▒▓░░░ ▒░ ░░ ▒░   ░  ░░ ▒░▒░▒░    ░ ▐░  ░░ ▒░ ░   ░▒▓███▀▒▒▓▒░ ░  ░
+  ░▒ ░ ▒░ ░ ░  ░░  ░      ░  ░ ▒ ▒░    ░ ░░   ░ ░  ░   ▒░▒   ░ ░▒ ░     
+  ░░   ░    ░   ░      ░   ░ ░ ░ ▒       ░░     ░       ░    ░ ░░       
+   ░        ░  ░       ░       ░ ░        ░     ░  ░    ░               
+                                         ░                   ░          \n''' +
+                                          '== == == == == == == == == == == == == == == == == == == == == == == == ==\n' + Fore.RESET +
+                                          'Bloodpoints =', response.getbp(cookie),
+                                          Fore.CYAN + '\n== == == == == == == == == == == == == == == == == == == == == == == == ==\n' + Fore.RESET +
+                                          'How many would you like to remove: ')
+                                    rem = -1
+                                    try:
+                                        rem = int(input())
+                                    except ValueError:
+                                        print('Enter a valid number')
+                                    if rem >=0 or rem <= response.getbp(cookie):
+                                        response.removebp(cookie, rem)
+                                        time.sleep(1)
+                                        break
+                                if h == 2:
+                                    clear()
+                                    print(Fore.CYAN + '''
+ ██▀███  ▓█████  ███▄ ▄███▓ ▒█████   ██▒   █▓▓█████     ▄▄▄▄    ██▓███  
+▓██ ▒ ██▒▓█   ▀ ▓██▒▀█▀ ██▒▒██▒  ██▒▓██░   █▒▓█   ▀    ▓█████▄ ▓██░  ██▒
+▓██ ░▄█ ▒▒███   ▓██    ▓██░▒██░  ██▒ ▓██  █▒░▒███      ▒██▒ ▄██▓██░ ██▓▒
+▒██▀▀█▄  ▒▓█  ▄ ▒██    ▒██ ▒██   ██░  ▒██ █░░▒▓█  ▄    ▒██░█▀  ▒██▄█▓▒ ▒
+░██▓ ▒██▒░▒████▒▒██▒   ░██▒░ ████▓▒░   ▒▀█░  ░▒████▒   ░▓█  ▀█▓▒██▒ ░  ░
+░ ▒▓ ░▒▓░░░ ▒░ ░░ ▒░   ░  ░░ ▒░▒░▒░    ░ ▐░  ░░ ▒░ ░   ░▒▓███▀▒▒▓▒░ ░  ░
+  ░▒ ░ ▒░ ░ ░  ░░  ░      ░  ░ ▒ ▒░    ░ ░░   ░ ░  ░   ▒░▒   ░ ░▒ ░     
+  ░░   ░    ░   ░      ░   ░ ░ ░ ▒       ░░     ░       ░    ░ ░░       
+   ░        ░  ░       ░       ░ ░        ░     ░  ░    ░               
+                                         ░                   ░          \n''' +
+                                          '== == == == == == == == == == == == == == == == == == == == == == == == ==\n' + Fore.RESET +
+                                          'BonusBloodpoints =', response.getbonusbp(cookie),
+                                          Fore.CYAN + '\n== == == == == == == == == == == == == == == == == == == == == == == == ==\n' + Fore.RESET +
+                                          'How many would you like to remove: ')
+                                    rem = -1
+                                    try:
+                                        rem = int(input())
+                                    except ValueError:
+                                        print('Enter a valid number')
+                                    if rem >= 0 or rem <= response.getbonusbp(cookie):
+                                        response.removebonusbp(cookie, rem)
+                                        time.sleep(1)
+                                        break
+                                if h == 3:
+                                    print('Exiting...')
+                                    break
+
+
+
+                                #TODO finish menu for choosing and removing a currency
+
 
                 if selection == 6:
                     print("Exiting..")
