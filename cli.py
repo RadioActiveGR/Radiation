@@ -182,7 +182,7 @@ Cookie: ''' + Fore.RESET)
                             break
 
                 if selection == 4:
-                    d = -1
+                    g = -1
                     while True:
                         clear()
                         print(Fore.GREEN +'''
@@ -206,7 +206,7 @@ Fore.RED + "You can add up to 900 Millions once per account,\nIf you get unsucce
                             print('Enter a valid number')
 
                         if g > 1000000 and g <= 900000000:
-                            response.unlimitedbp(cookie, d)
+                            response.unlimitedbp(cookie, g)
                             time.sleep(1)
                             break
                         print(Fore.RED + 'Enter valid number bigger then 1M and less than 900M' + Fore.RESET)
@@ -298,7 +298,7 @@ Fore.RED + "You can add up to 900 Millions once per account,\nIf you get unsucce
 
 
 
-                                #TODO finish menu for choosing and removing a currency
+
 
 
                 if selection == 6:
