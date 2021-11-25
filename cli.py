@@ -5,6 +5,7 @@ from colorama import init, Fore
 
 init(convert=True)
 
+
 def main():
     while (True):
         clear()
